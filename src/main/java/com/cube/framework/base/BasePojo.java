@@ -20,7 +20,7 @@ import com.cube.framework.utils.ReflectUtils;
 import com.cube.framework.utils.WhereFilter;
 
 /**
- * 
+ * 基础POJO类
  * @author YuYang
  * @version 1.0
  */
@@ -29,8 +29,8 @@ public class BasePojo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 
-	 * @return
+	 * 通过@Table(name = "table_name")获取POJO对应的数据库表名
+	 * @return 数据库表名，如：table_name
 	 */
 	public String tablename() {
 		Table table = this.getClass().getAnnotation(Table.class);
@@ -42,8 +42,8 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * 通过@Id获取POJO的主键属性名，通过@Column(name = "user_id")获取POJO的主键字段名
+	 * @return 主键名，如：{"userId","user_id"}
 	 */
 	public String[] id() {
 		for (Field field : this.getClass().getDeclaredFields()) {
@@ -55,7 +55,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 用于存放POJO的列信息
+	 * 用于存放POJO的属性与列信息，如：{BaseUserPojo.class:[{"userId","user_id"},{"userName","user_name"}],BaseRolePojo.class:[{"roleId","role_id"},{"roleName","role_name"}]}
 	 */
 	private transient static Map<Class<? extends BasePojo>, List<String[]>> columnMap = new HashMap<Class<? extends BasePojo>, List<String[]>>();
 
@@ -90,7 +90,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 用于计算类定义 需要POJO中的属性定义@Column(name)
+	 * 根据@Column(name = "user_name")获取POJO中属性名及字段名列表与POJO的class存入columnMap中
 	 */
 	public void caculationColumnList() {
 		if (columnMap.containsKey(this.getClass())) {
@@ -107,7 +107,8 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 根据POJO属性列数据columnMap与WhereFilter过滤条件集合拼接过滤条件SQL
+	 * @param filterList
 	 * @return
 	 */
 	public String whereColumns(List<WhereFilter> filterList) {
@@ -187,7 +188,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 根据POJO属性列数据columnMap拼接select结果SQL
 	 * @return
 	 */
 	public String selectColumnsName() {
@@ -206,7 +207,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 根据POJO属性列数据columnMap拼接insert字段SQL
 	 * @return
 	 */
 	public String insertColumnsName() {
@@ -226,7 +227,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 根据POJO属性列数据columnMap拼接insert值SQL
 	 * @return
 	 */
 	public String insertColumnsValues() {
@@ -246,7 +247,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 根据POJO属性列数据columnMap拼接update字段SQL
 	 * @return
 	 */
 	public String updateSet() {
@@ -270,7 +271,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 将当前POJO对象转为JSON字符串
 	 * @return
 	 */
 	public String toJSONString() {
@@ -279,7 +280,7 @@ public class BasePojo implements Serializable {
 	}
 
 	/**
-	 * 
+	 * 将当前POJO对象转为字符串
 	 */
 	@Override
 	public String toString() {
@@ -307,7 +308,7 @@ public class BasePojo implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * 将Map对象转为POJO对象
 	 * @param obj
 	 * @return
 	 */
