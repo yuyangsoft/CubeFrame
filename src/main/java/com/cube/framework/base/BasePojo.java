@@ -13,9 +13,8 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 import com.cube.framework.exception.PojoStructureException;
+import com.cube.framework.utils.JSONUtils;
 import com.cube.framework.utils.ReflectUtils;
 import com.cube.framework.utils.WhereFilter;
 
@@ -275,8 +274,7 @@ public class BasePojo implements Serializable {
 	 * @return
 	 */
 	public String toJSONString() {
-		JSONObject json = new JSONObject(this);
-		return json.toString();
+		return JSONUtils.beanToJson(this).toJSONString();
 	}
 
 	/**
