@@ -39,7 +39,7 @@ public class BasePojo implements Serializable {
 			throw new PojoStructureException("undefine POJO @Table, need Tablename(@Table(name))");
 		}
 	}
-
+	
 	/**
 	 * 通过@Id获取POJO的主键属性名，通过@Column(name = "user_id")获取POJO的主键字段名
 	 * @return 主键名，如：{"userId","user_id"}
@@ -263,10 +263,6 @@ public class BasePojo implements Serializable {
 			sb.append(column[1]).append("=#{").append(column[0]).append('}');
 		}
 		return sb.toString();
-	}
-
-	public Integer getId() {
-		return 0;
 	}
 
 	/**
