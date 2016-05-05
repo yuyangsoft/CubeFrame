@@ -43,11 +43,20 @@ public abstract class BaseController<T extends BasePojo> {
 	}
 	
 	@RequestMapping(value="/del/{id}")
-	public WebResultInfo del() {
+	public String del(@PathVariable("id") Object id) {
 		WebResultInfo resultInfo = new WebResultInfo();
-		return resultInfo;
+		if(id == null) {
+			resultInfo.setCode(-1);
+			resultInfo.setMsg("delete by id failed! because id is null!");
+			return JSONUtils.beanToJson(resultInfo).toJSONString();
+		}
+		Integer rowCount = getService().removeById(id);
+		resultInfo.setCode(0);
+		resultInfo.setMsg("delete by id success!");
+		resultInfo.setData(rowCount);
+		return JSONUtils.beanToJson(resultInfo).toJSONString();
 	}
-
+	
 	public abstract BaseService<T> getService();
 
 }

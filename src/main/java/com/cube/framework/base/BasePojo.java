@@ -115,72 +115,86 @@ public class BasePojo implements Serializable {
 		List<String[]> propertyNameList = columnMap.get(this.getClass());
 		for (int i = 0; i < filterList.size(); i++) {
 			WhereFilter wf = filterList.get(i);
+			Boolean type = false;
 			for (String[] propertyName : propertyNameList) {
 				if (propertyName[0].equals(wf.fieldName)) {
 					sb.append(propertyName[1]);
+					type = true;
 					break;
 				}
 			}
-			switch (wf.operator) {
-			case EQ:
-				sb.append(" = ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case NOT_EQ:
-				sb.append(" <> ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case GT:
-				sb.append(" > ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case GTE:
-				sb.append(" >= ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case IN:
-				sb.append(" in ");
-				wf.value = "(" + wf.value + ")";
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case LIKE:
-				sb.append(" like ");
-				wf.value = "%" + wf.value + "%";
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case LIKE_L:
-				sb.append(" like ");
-				wf.value = "%" + wf.value;
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case LIKE_R:
-				sb.append(" like ");
-				wf.value = wf.value + "%";
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case LT:
-				sb.append(" < ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case LTE:
-				sb.append(" <= ");
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case NOT_IN:
-				sb.append(" not in ");
-				wf.value = "(" + wf.value + ")";
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			case NOT_LIKE:
-				sb.append(" not like ");
-				wf.value = "%" + wf.value + "%";
-				sb.append("#{param2[" + i + "].value}");
-				break;
-			default:
-				break;
-			}
-			if (i != filterList.size() - 1) {
-				sb.append(" and ");
+			if(type) {
+				switch (wf.operator) {
+				case eq:
+					sb.append(" = ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case notEq:
+					sb.append(" <> ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case gt:
+					sb.append(" > ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case gte:
+					sb.append(" >= ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case in:
+					sb.append(" in ");
+					wf.value = "(" + wf.value + ")";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case like:
+					sb.append(" like ");
+					wf.value = "%" + wf.value + "%";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case likeL:
+					sb.append(" like ");
+					wf.value = "%" + wf.value;
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case likeR:
+					sb.append(" like ");
+					wf.value = wf.value + "%";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case lt:
+					sb.append(" < ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case lte:
+					sb.append(" <= ");
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case notIn:
+					sb.append(" not in ");
+					wf.value = "(" + wf.value + ")";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case notLike:
+					sb.append(" not like ");
+					wf.value = "%" + wf.value + "%";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case notLikeL:
+					sb.append(" not like ");
+					wf.value = "%" + wf.value;
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				case notLikeR:
+					sb.append(" not like ");
+					wf.value = wf.value + "%";
+					sb.append("#{param2[" + i + "].value}");
+					break;
+				default:
+					break;
+				}
+				if (i != filterList.size() - 1) {
+					sb.append(" and ");
+				}
 			}
 		}
 		return sb.toString();

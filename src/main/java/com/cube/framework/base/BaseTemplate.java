@@ -68,9 +68,11 @@ public class BaseTemplate<T extends BasePojo> {
 		obj.caculationColumnList();
 		UPDATE(obj.tablename());
 		SET(obj.updateSet());
-		String where = obj.whereColumns(filterList);
-		if (StringUtils.isNotBlank(where)) {
-			WHERE(where);
+		if(filterList != null && filterList.size() > 0) {
+			String where = obj.whereColumns(filterList);
+			if (StringUtils.isNotBlank(where)) {
+				WHERE(where);
+			}
 		}
 		return SQL();
 	}
@@ -99,9 +101,11 @@ public class BaseTemplate<T extends BasePojo> {
 		List<WhereFilter> filterList = (List<WhereFilter>) map.get("1");
 		BEGIN();
 		DELETE_FROM(obj.tablename());
+		if(filterList != null && filterList.size() > 0) {
 		String where = obj.whereColumns(filterList);
-		if (StringUtils.isNotBlank(where)) {
-			WHERE(where);
+			if (StringUtils.isNotBlank(where)) {
+				WHERE(where);
+			}
 		}
 		return SQL();
 	}
@@ -119,9 +123,11 @@ public class BaseTemplate<T extends BasePojo> {
 		obj.caculationColumnList();
 		SELECT("count(*)");
 		FROM(obj.tablename());
-		String where = obj.whereColumns(filterList);
-		if (StringUtils.isNotBlank(where)) {
-			WHERE(where);
+		if(filterList != null && filterList.size() > 0) {
+			String where = obj.whereColumns(filterList);
+			if (StringUtils.isNotBlank(where)) {
+				WHERE(where);
+			}
 		}
 		return SQL();
 	}
@@ -154,9 +160,11 @@ public class BaseTemplate<T extends BasePojo> {
 		obj.caculationColumnList();
 		SELECT(obj.selectColumnsName());
 		FROM(obj.tablename());
-		String where = obj.whereColumns(filterList);
-		if (StringUtils.isNotBlank(where)) {
-			WHERE(where);
+		if(filterList != null && filterList.size() > 0) {
+			String where = obj.whereColumns(filterList);
+			if (StringUtils.isNotBlank(where)) {
+				WHERE(where);
+			}
 		}
 		return SQL();
 	}
@@ -175,9 +183,11 @@ public class BaseTemplate<T extends BasePojo> {
 		obj.caculationColumnList();
 		SELECT(obj.selectColumnsName());
 		FROM(obj.tablename());
-		String where = obj.whereColumns(filterList);
-		if (StringUtils.isNotBlank(where)) {
-			WHERE(where);
+		if(filterList != null && filterList.size() > 0) {
+			String where = obj.whereColumns(filterList);
+			if (StringUtils.isNotBlank(where)) {
+				WHERE(where);
+			}
 		}
 		String sql = SQL();
 		if (page != null) {
